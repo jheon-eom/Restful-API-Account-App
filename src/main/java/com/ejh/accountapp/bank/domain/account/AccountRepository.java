@@ -1,4 +1,4 @@
-package com.ejh.accountapp.bank.account.domain;
+package com.ejh.accountapp.bank.domain.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

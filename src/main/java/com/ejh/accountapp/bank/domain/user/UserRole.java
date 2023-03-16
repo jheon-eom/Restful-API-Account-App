@@ -1,4 +1,4 @@
-package com.ejh.accountapp.bank.user.domain;
+package com.ejh.accountapp.bank.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

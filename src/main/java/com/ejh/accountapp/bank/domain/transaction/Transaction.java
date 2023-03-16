@@ -1,6 +1,6 @@
-package com.ejh.accountapp.bank.transaction.domain;
+package com.ejh.accountapp.bank.domain.transaction;
 
-import com.ejh.accountapp.bank.account.domain.Account;
+import com.ejh.accountapp.bank.domain.account.Account;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,7 +31,7 @@ public class Transaction {
     private int depositAccountBalance;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private TransactionDivision division;
+    private TransactionClassification transactionClassification;
     private String sender; // 입금인
     private String receiver; // 송금인
     @Column(nullable = false)
@@ -43,7 +43,7 @@ public class Transaction {
 
     @Builder
     public Transaction(Long id, Account depositAccount, Account withdrawAccount, int amount,
-                       int withdrawAccountBalance, int depositAccountBalance, TransactionDivision division,
+                       int withdrawAccountBalance, int depositAccountBalance, TransactionClassification transactionClassification,
                        String sender, String receiver, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;
         this.depositAccount = depositAccount;
@@ -51,7 +51,7 @@ public class Transaction {
         this.amount = amount;
         this.withdrawAccountBalance = withdrawAccountBalance;
         this.depositAccountBalance = depositAccountBalance;
-        this.division = division;
+        this.transactionClassification = transactionClassification;
         this.sender = sender;
         this.receiver = receiver;
         this.createdAt = createdAt;

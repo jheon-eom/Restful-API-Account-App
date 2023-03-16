@@ -1,6 +1,6 @@
-package com.ejh.accountapp.bank.account.domain;
+package com.ejh.accountapp.bank.domain.account;
 
-import com.ejh.accountapp.bank.user.domain.User;
+import com.ejh.accountapp.bank.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -12,7 +12,7 @@ spring:
     hibernate:
       ddl-auto: create
     properties:
-      hibernate.format.sql: true
+      '[hibernate.format_sql]': true
     show-sql: true
   output:
     ansi:
@@ -21,3 +21,5 @@ spring:
 logging:
   level:
     org.springframework: DEBUG
+
+# JWT 관련 설정 추가해야함 (비밀 키)
