@@ -12,9 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -27,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Slf4j
+@Transactional
 class JwtAuthenticationFilterTest {
     @Autowired
     ObjectMapper objectMapper;
@@ -61,7 +64,7 @@ class JwtAuthenticationFilterTest {
 
         // when
         ResultActions resultActions = mockMvc.perform(post("/api/login")
-                .contentType("application/json; charset=utf-8").content(requestBody));
+                .contentType(MediaType.APPLICATION_JSON).content(requestBody));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         log.info("로그인 요청 응답 = {}", responseBody);
         String token = resultActions.andReturn().getResponse().getHeader("Authorization");
