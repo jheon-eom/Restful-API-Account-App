@@ -16,7 +16,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() ->
-                new InternalAuthenticationServiceException("인증 실패"));
+                new InternalAuthenticationServiceException("로그인 인증 실패"));
         return new CustomUserDetails(user);
     }
 }

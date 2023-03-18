@@ -1,14 +1,14 @@
 package com.ejh.accountapp.bank.dto.user;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class LoginRequestDto {
     private String username;
     private String password;
-
-    public LoginRequestDto(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 }

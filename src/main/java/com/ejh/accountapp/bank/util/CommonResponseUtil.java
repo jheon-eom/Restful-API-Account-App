@@ -19,7 +19,7 @@ public class CommonResponseUtil {
             response.setStatus(200);
             response.getWriter().println(responseBody);
         } catch (Exception e) {
-            log.error("can not parsing");
+            log.error("인증 성공, 서버 파싱 에러");
         }
     }
 
@@ -31,8 +31,7 @@ public class CommonResponseUtil {
             response.setStatus(httpStatus.value());
             response.getWriter().println(responseBody);
         } catch (Exception e) {
-            log.error("can not parsing");
+            log.error("인증 실패, 서버 파싱 에러");
         }
     }
-
 }
