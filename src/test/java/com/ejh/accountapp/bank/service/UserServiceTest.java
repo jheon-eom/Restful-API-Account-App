@@ -5,6 +5,8 @@ import com.ejh.accountapp.bank.domain.user.UserRepository;
 import com.ejh.accountapp.bank.domain.user.UserRole;
 import com.ejh.accountapp.bank.dto.user.JoinRequestDto;
 import com.ejh.accountapp.bank.dto.user.JoinResponseDto;
+import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequest;
+import com.ejh.accountapp.bank.dummy.DummyUser;
 import com.ejh.accountapp.bank.handler.exception.CustomApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -21,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -85,5 +88,23 @@ class UserServiceTest {
 
         // then
         Assertions.assertThrows(CustomApiException.class, () -> userService.join(joinRequestDto));
+    }
+
+    @Test
+    @DisplayName("사용자 패스워드 변경 테스트")
+    void updatePasswordTest() throws Exception {
+        // given
+        User user = DummyUser.createUser("ejh", "e4033jh@daum.net");
+        UpdateUserPasswordRequest updateUserPasswordRequest =
+                new UpdateUserPasswordRequest("1234", "4321");
+
+        // stub
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+
+        // when
+        userService.updateUserPassword(updateUserPasswordRequest, user.getId());
+
+        // then
+        assertTrue(passwordEncoder.matches(updateUserPasswordRequest.getNewPassword(), user.getPassword()));
     }
 }

@@ -1,5 +1,6 @@
 package com.ejh.accountapp.bank.domain.user;
 
+import com.ejh.accountapp.bank.handler.exception.CustomApiException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,8 +8,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -46,5 +50,24 @@ public class User {
         this.role = role;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
+    }
+
+    public void updatePassword(String currentPassword, String newPassword,
+                               BCryptPasswordEncoder passwordEncoder) {
+        verifyPassword(currentPassword, passwordEncoder);
+        checkSamePassword(newPassword, passwordEncoder);
+        password = passwordEncoder.encode(newPassword);
+    }
+
+    private void verifyPassword(String currentPassword, BCryptPasswordEncoder passwordEncoder) {
+        if (!passwordEncoder.matches(currentPassword, password)) {
+            throw new CustomApiException("패스워드가 일치하지 않습니다.");
+        }
+    }
+
+    private void checkSamePassword(String newPassword, BCryptPasswordEncoder passwordEncoder) {
+        if (passwordEncoder.matches(newPassword, password)) {
+            throw new CustomApiException("현재 패스워드와 동일합니다.");
+        }
     }
 }

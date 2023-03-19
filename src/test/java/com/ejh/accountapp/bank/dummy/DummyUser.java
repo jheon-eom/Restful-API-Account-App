@@ -20,4 +20,16 @@ public class DummyUser {
                 .modifiedAt(LocalDateTime.now())
                 .build();
     }
+
+    public static User createAdminUser(String username, String email) {
+        return User.builder()
+                .id(2L)
+                .username(username)
+                .password(passwordEncoder.encode("1234"))
+                .email(email)
+                .role(UserRole.ADMIN)
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .build();
+    }
 }
