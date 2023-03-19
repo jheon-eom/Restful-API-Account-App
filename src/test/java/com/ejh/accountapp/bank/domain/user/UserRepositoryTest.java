@@ -1,6 +1,7 @@
 package com.ejh.accountapp.bank.domain.user;
 
 import com.ejh.accountapp.bank.dto.user.JoinRequestDto;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,11 @@ class UserRepositoryTest {
                 .modifiedAt(LocalDateTime.now())
                 .build();
         userRepository.save(user);
+    }
+
+    @AfterEach
+    void clear() {
+        userRepository.deleteAll();
     }
 
     @Test

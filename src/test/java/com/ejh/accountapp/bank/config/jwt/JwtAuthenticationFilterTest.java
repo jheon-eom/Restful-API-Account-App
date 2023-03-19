@@ -6,6 +6,7 @@ import com.ejh.accountapp.bank.domain.user.UserRole;
 import com.ejh.accountapp.bank.dto.user.LoginRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Slf4j
-@Transactional
 class JwtAuthenticationFilterTest {
     @Autowired
     ObjectMapper objectMapper;
@@ -52,6 +52,11 @@ class JwtAuthenticationFilterTest {
                 .modifiedAt(LocalDateTime.now())
                 .build();
         userRepository.save(user);
+    }
+
+    @AfterEach
+    void clear() {
+        userRepository.deleteAll();
     }
 
     @Test

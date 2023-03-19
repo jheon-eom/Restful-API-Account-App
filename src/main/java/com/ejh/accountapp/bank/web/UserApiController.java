@@ -4,7 +4,7 @@ import com.ejh.accountapp.bank.config.auth.CustomUserDetails;
 import com.ejh.accountapp.bank.dto.ResponseDto;
 import com.ejh.accountapp.bank.dto.user.JoinRequestDto;
 import com.ejh.accountapp.bank.dto.user.JoinResponseDto;
-import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequest;
+import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequestDto;
 import com.ejh.accountapp.bank.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,9 +30,9 @@ public class UserApiController {
     // 회원 탈퇴 API 추가 예정
 
     @PutMapping("/s/users/password")
-    public ResponseEntity<?> updateUserPassword(@RequestBody @Valid UpdateUserPasswordRequest updateUserPasswordRequest,
+    public ResponseEntity<?> updateUserPassword(@RequestBody @Valid UpdateUserPasswordRequestDto updateUserPasswordRequestDto,
                                                 BindingResult bindingResult, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        userService.updateUserPassword(updateUserPasswordRequest, userDetails.getUser().getId());
+        userService.updateUserPassword(updateUserPasswordRequestDto, userDetails.getUser().getId());
         return new ResponseEntity<>(new ResponseDto<>(1, "패스워드 변경 완료", null), HttpStatus.OK);
     }
 }

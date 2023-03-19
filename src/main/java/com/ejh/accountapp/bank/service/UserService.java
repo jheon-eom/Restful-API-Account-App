@@ -4,7 +4,7 @@ import com.ejh.accountapp.bank.domain.user.User;
 import com.ejh.accountapp.bank.domain.user.UserRepository;
 import com.ejh.accountapp.bank.dto.user.JoinRequestDto;
 import com.ejh.accountapp.bank.dto.user.JoinResponseDto;
-import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequest;
+import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequestDto;
 import com.ejh.accountapp.bank.handler.exception.CustomApiException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,12 +35,12 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest, Long userId) {
+    public void updateUserPassword(UpdateUserPasswordRequestDto updateUserPasswordRequestDto, Long userId) {
         // 사용자 확인
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new CustomApiException("존재하지 않는 사용자입니다."));
         // 패스워드 변경
-        user.updatePassword(updateUserPasswordRequest.getCurrentPassword(),
-                updateUserPasswordRequest.getNewPassword(), passwordEncoder);
+        user.updatePassword(updateUserPasswordRequestDto.getCurrentPassword(),
+                updateUserPasswordRequestDto.getNewPassword(), passwordEncoder);
     }
 }

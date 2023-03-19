@@ -3,10 +3,11 @@ package com.ejh.accountapp.bank.web;
 import com.ejh.accountapp.bank.domain.user.User;
 import com.ejh.accountapp.bank.domain.user.UserRepository;
 import com.ejh.accountapp.bank.dto.user.JoinRequestDto;
-import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequest;
+import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequestDto;
 import com.ejh.accountapp.bank.dummy.DummyUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Slf4j
-@Transactional
 class UserApiControllerTest {
     @Autowired
     MockMvc mockMvc;
@@ -39,6 +39,11 @@ class UserApiControllerTest {
     @BeforeEach
     void setUp() {
         joinUser();
+    }
+
+    @AfterEach
+    void clear() {
+        userRepository.deleteAll();
     }
 
     @Test
@@ -83,10 +88,10 @@ class UserApiControllerTest {
     @WithUserDetails(value = "ejh123", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void updateUserPasswordTest() throws Exception {
         // given
-        UpdateUserPasswordRequest updateUserPasswordRequest =
-                new UpdateUserPasswordRequest("1234", "4321");
-        String requestBody = objectMapper.writeValueAsString(updateUserPasswordRequest);
-        log.info("패스워드 변경 요청 = {}", updateUserPasswordRequest);
+        UpdateUserPasswordRequestDto updateUserPasswordRequestDto =
+                new UpdateUserPasswordRequestDto("1234", "4321");
+        String requestBody = objectMapper.writeValueAsString(updateUserPasswordRequestDto);
+        log.info("패스워드 변경 요청 = {}", updateUserPasswordRequestDto);
 
         // when
         ResultActions resultActions = mockMvc.perform(put("/api/s/users/password")

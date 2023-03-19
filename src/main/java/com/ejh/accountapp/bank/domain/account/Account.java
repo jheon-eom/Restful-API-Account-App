@@ -22,11 +22,11 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, nullable = false, length = 20)
-    private int number;
+    private Long accountNumber;
     @Column(nullable = false, length = 4)
-    private int password;
+    private Long password;
     @Column(nullable = false)
-    private int balance = 0;
+    private Long balance;
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     @Column(nullable = false)
@@ -37,10 +37,10 @@ public class Account {
     private LocalDateTime modifiedAt;
 
     @Builder
-    public Account(Long id, int number, int password, int balance, User user,
+    public Account(Long id, Long accountNumber, Long password, Long balance, User user,
                    LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;
-        this.number = number;
+        this.accountNumber = accountNumber;
         this.password = password;
         this.balance = balance;
         this.user = user;

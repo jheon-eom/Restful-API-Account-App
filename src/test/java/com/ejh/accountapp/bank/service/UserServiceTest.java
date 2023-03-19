@@ -5,7 +5,7 @@ import com.ejh.accountapp.bank.domain.user.UserRepository;
 import com.ejh.accountapp.bank.domain.user.UserRole;
 import com.ejh.accountapp.bank.dto.user.JoinRequestDto;
 import com.ejh.accountapp.bank.dto.user.JoinResponseDto;
-import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequest;
+import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequestDto;
 import com.ejh.accountapp.bank.dummy.DummyUser;
 import com.ejh.accountapp.bank.handler.exception.CustomApiException;
 import lombok.extern.slf4j.Slf4j;
@@ -95,16 +95,16 @@ class UserServiceTest {
     void updatePasswordTest() throws Exception {
         // given
         User user = DummyUser.createUser("ejh", "e4033jh@daum.net");
-        UpdateUserPasswordRequest updateUserPasswordRequest =
-                new UpdateUserPasswordRequest("1234", "4321");
+        UpdateUserPasswordRequestDto updateUserPasswordRequestDto =
+                new UpdateUserPasswordRequestDto("1234", "4321");
 
         // stub
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 
         // when
-        userService.updateUserPassword(updateUserPasswordRequest, user.getId());
+        userService.updateUserPassword(updateUserPasswordRequestDto, user.getId());
 
         // then
-        assertTrue(passwordEncoder.matches(updateUserPasswordRequest.getNewPassword(), user.getPassword()));
+        assertTrue(passwordEncoder.matches(updateUserPasswordRequestDto.getNewPassword(), user.getPassword()));
     }
 }

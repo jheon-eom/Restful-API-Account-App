@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UpdateUserPasswordRequest {
+public class UpdateUserPasswordRequestDto {
     @NotEmpty(message = "현재 password는 필수입니다.")
     @Size(min = 4, max = 20)
     private String currentPassword;

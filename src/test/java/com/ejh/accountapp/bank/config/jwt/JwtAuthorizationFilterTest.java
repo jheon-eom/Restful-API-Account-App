@@ -2,7 +2,9 @@ package com.ejh.accountapp.bank.config.jwt;
 
 import com.ejh.accountapp.bank.config.auth.CustomUserDetails;
 import com.ejh.accountapp.bank.domain.user.User;
+import com.ejh.accountapp.bank.domain.user.UserRepository;
 import com.ejh.accountapp.bank.domain.user.UserRole;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +12,22 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-@Transactional
 class JwtAuthorizationFilterTest {
     @Autowired
     MockMvc mockMvc;
+    @Autowired
+    UserRepository userRepository;
+
+    @AfterEach
+    void clear() {
+        userRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("일반 사용자 토큰 인가 테스트")
