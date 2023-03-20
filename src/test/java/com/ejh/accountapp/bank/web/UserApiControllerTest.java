@@ -4,7 +4,7 @@ import com.ejh.accountapp.bank.domain.user.User;
 import com.ejh.accountapp.bank.domain.user.UserRepository;
 import com.ejh.accountapp.bank.dto.user.JoinRequestDto;
 import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequestDto;
-import com.ejh.accountapp.bank.dummy.DummyUser;
+import com.ejh.accountapp.bank.dummy.DummyObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
@@ -19,7 +19,6 @@ import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -104,7 +103,7 @@ class UserApiControllerTest {
     }
 
     void joinUser() {
-        User user = DummyUser.createUser("ejh123", "ejh123@daum.net");
+        User user = DummyObject.createUser("ejh123", "ejh123@daum.net");
         userRepository.save(user);
     }
 }

@@ -21,14 +21,18 @@ import javax.validation.Valid;
 public class UserApiController {
     private final UserService userService;
 
+    // 회원가입
     @PostMapping("/users")
     public ResponseEntity<?> join(@RequestBody @Valid JoinRequestDto joinRequestDto, BindingResult bindingResult) {
         JoinResponseDto joinUser = userService.join(joinRequestDto);
         return new ResponseEntity<>(new ResponseDto<>(1, "회원가입 완료", joinUser), HttpStatus.CREATED);
     }
 
-    // 회원 탈퇴 API 추가 예정
+    // 회원 목록
 
+    // 회원 상세
+
+    // 패스워드 변경
     @PutMapping("/s/users/password")
     public ResponseEntity<?> updateUserPassword(@RequestBody @Valid UpdateUserPasswordRequestDto updateUserPasswordRequestDto,
                                                 BindingResult bindingResult, @AuthenticationPrincipal CustomUserDetails userDetails) {

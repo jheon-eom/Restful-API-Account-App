@@ -1,6 +1,7 @@
 package com.ejh.accountapp.bank.domain.account;
 
 import com.ejh.accountapp.bank.domain.user.User;
+import com.ejh.accountapp.bank.handler.exception.CustomApiException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,5 +47,11 @@ public class Account {
         this.user = user;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
+    }
+
+    public void checkOwner(Long userId) {
+        if (!user.getId().equals(userId)) {
+            throw new CustomApiException("계좌의 소유자가 일치하지 않습니다.");
+        }
     }
 }

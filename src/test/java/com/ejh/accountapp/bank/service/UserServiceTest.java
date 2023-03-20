@@ -6,7 +6,7 @@ import com.ejh.accountapp.bank.domain.user.UserRole;
 import com.ejh.accountapp.bank.dto.user.JoinRequestDto;
 import com.ejh.accountapp.bank.dto.user.JoinResponseDto;
 import com.ejh.accountapp.bank.dto.user.UpdateUserPasswordRequestDto;
-import com.ejh.accountapp.bank.dummy.DummyUser;
+import com.ejh.accountapp.bank.dummy.DummyObject;
 import com.ejh.accountapp.bank.handler.exception.CustomApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -94,7 +94,7 @@ class UserServiceTest {
     @DisplayName("사용자 패스워드 변경 테스트")
     void updatePasswordTest() throws Exception {
         // given
-        User user = DummyUser.createUser("ejh", "e4033jh@daum.net");
+        User user = DummyObject.createUser("ejh", "e4033jh@daum.net");
         UpdateUserPasswordRequestDto updateUserPasswordRequestDto =
                 new UpdateUserPasswordRequestDto("1234", "4321");
 

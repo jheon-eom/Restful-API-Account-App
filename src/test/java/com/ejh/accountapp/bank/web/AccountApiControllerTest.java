@@ -1,10 +1,12 @@
 package com.ejh.accountapp.bank.web;
 
+import com.ejh.accountapp.bank.domain.account.Account;
 import com.ejh.accountapp.bank.domain.account.AccountRepository;
 import com.ejh.accountapp.bank.domain.user.User;
 import com.ejh.accountapp.bank.domain.user.UserRepository;
+import com.ejh.accountapp.bank.dto.account.AccountDetailRequestDto;
 import com.ejh.accountapp.bank.dto.account.CreateAccountRequestDto;
-import com.ejh.accountapp.bank.dummy.DummyUser;
+import com.ejh.accountapp.bank.dummy.DummyObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
@@ -20,6 +22,7 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,7 +41,7 @@ class AccountApiControllerTest {
 
     @BeforeEach
     void setUp() {
-        User user = DummyUser.createUser("ejh", "e4033jh@daum.net");
+        User user = DummyObject.createUser("ejh", "e4033jh@daum.net");
         userRepository.save(user);
     }
 
@@ -67,4 +70,29 @@ class AccountApiControllerTest {
         // then
         resultActions.andExpect(status().isCreated());
     }
+
+    @Test
+    @DisplayName("계좌 상세 조회 컨트롤러 테스트")
+    @WithUserDetails(value = "ejh", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void accountDetailTest() throws Exception {
+        // given
+        User user = DummyObject.createUser("ejh", "e4033jh@daum.net");
+        userRepository.save(user);
+        Account account = DummyObject.createAccount(1L, 1234567890L, 1000L, user);
+        accountRepository.save(account);
+        AccountDetailRequestDto accountDetailRequestDto = new AccountDetailRequestDto(
+                1234567890L, 1234L);
+        String requestBody = objectMapper.writeValueAsString(accountDetailRequestDto);
+        log.info("요청 = {}", requestBody);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/api/s/accounts")
+                .contentType(MediaType.APPLICATION_JSON).content(requestBody));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        log.info("응답 = {}", responseBody);
+
+        // then
+        resultActions.andExpect(status().isOk());
+    }
+
 }
