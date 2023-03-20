@@ -54,4 +54,10 @@ public class Account {
             throw new CustomApiException("계좌의 소유자가 일치하지 않습니다.");
         }
     }
+
+    public void checkBalance() {
+        if (balance > 0L) {
+            throw new CustomApiException("계좌의 잔액이 존재합니다.");
+        }
+    }
 }

@@ -6,15 +6,17 @@ import com.ejh.accountapp.bank.dto.account.CreateAccountRequestDto;
 import com.ejh.accountapp.bank.dummy.DummyObject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @Slf4j
@@ -24,8 +26,6 @@ class AccountRepositoryTest {
     AccountRepository accountRepository;
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    EntityManager entityManager;
 
     @AfterEach
     void clear() {
@@ -54,5 +54,24 @@ class AccountRepositoryTest {
         assertThat(findAccount.getUser()).isNotNull();
     }
 
+    @Test
+    @DisplayName("계좌 목록 조회 쿼리 테스트")
+    void findByUserIdTest() throws Exception {
+        // given
+        CreateAccountRequestDto createAccountRequestDto1 = new CreateAccountRequestDto(
+                1234567890L, 1234L);
+        CreateAccountRequestDto createAccountRequestDto2 = new CreateAccountRequestDto(
+                1234567891L, 1234L);
+        User user = DummyObject.createUser("ejh", "e4033jh@daum.net");
+        User accountUser = userRepository.save(user);
+        accountRepository.save(createAccountRequestDto1.toEntity(accountUser));
+        accountRepository.save(createAccountRequestDto2.toEntity(accountUser));
 
+        // when
+        List<Account> accountList = accountRepository.findByUserId(accountUser.getId());
+
+        // then
+        assertThat(accountList.size()).isEqualTo(2);
+        assertTrue(accountList.get(0).getUser() != null);
+    }
 }

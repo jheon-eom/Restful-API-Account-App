@@ -23,8 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -97,4 +96,49 @@ class AccountApiControllerTest {
         resultActions.andExpect(status().isOk());
     }
 
+    @Test
+    @DisplayName("계좌 목록 조회 api 테스트")
+    @WithUserDetails(value = "ejh", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void getAccountList() throws Exception {
+        // given
+        CreateAccountRequestDto createAccountRequestDto1 = new CreateAccountRequestDto(
+                1234567890L, 1234L);
+        CreateAccountRequestDto createAccountRequestDto2 = new CreateAccountRequestDto(
+                1234567891L, 1234L);
+        User user = DummyObject.createUser("ejh", "e4033jh@daum.net");
+        User accountUser = userRepository.save(user);
+        accountRepository.save(createAccountRequestDto1.toEntity(accountUser));
+        accountRepository.save(createAccountRequestDto2.toEntity(accountUser));
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/api/s/accounts"));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        log.info("응답 = {}", responseBody);
+
+        // then
+        resultActions.andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("계좌 삭제 api 테스트")
+    @WithUserDetails(value = "ejh", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void deleteAccountTest() throws Exception {
+        // given
+        CreateAccountRequestDto createAccountRequestDto1 = new CreateAccountRequestDto(
+                1234567890L, 1234L);
+        CreateAccountRequestDto createAccountRequestDto2 = new CreateAccountRequestDto(
+                1234567891L, 1234L);
+        User user = DummyObject.createUser("ejh", "e4033jh@daum.net");
+        User accountUser = userRepository.save(user);
+        accountRepository.save(createAccountRequestDto1.toEntity(accountUser));
+        accountRepository.save(createAccountRequestDto2.toEntity(accountUser));
+
+        // when
+        ResultActions resultActions = mockMvc.perform(delete("/api/s/accounts/" + 1234567890L));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        log.info("응답 = {}", responseBody);
+
+        // then
+        resultActions.andExpect(status().isOk());
+    }
 }
