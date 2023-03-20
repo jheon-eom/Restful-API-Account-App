@@ -5,6 +5,7 @@ import com.ejh.accountapp.bank.dto.user.LoginRequestDto;
 import com.ejh.accountapp.bank.dto.user.LoginResponseDto;
 import com.ejh.accountapp.bank.util.CommonResponseUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -55,6 +56,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               AuthenticationException failed) throws IOException, ServletException {
-        super.unsuccessfulAuthentication(request, response, failed);
+        CommonResponseUtil.fail(response, "로그인 실패", HttpStatus.UNAUTHORIZED);
     }
 }

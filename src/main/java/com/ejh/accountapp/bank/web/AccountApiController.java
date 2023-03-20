@@ -34,7 +34,7 @@ public class AccountApiController {
     }
 
     // 계좌 상세 조회
-    @GetMapping("/s/accounts")
+    @GetMapping("/s/accounts/detail")
     public ResponseEntity<?> accountDetail(@RequestBody @Valid AccountDetailRequestDto accountDetailRequestDto,
                                            BindingResult bindingResult,
                                            @AuthenticationPrincipal CustomUserDetails userDetails) {
