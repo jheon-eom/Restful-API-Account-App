@@ -57,7 +57,27 @@ public class Account {
 
     public void checkBalance() {
         if (balance > 0L) {
-            throw new CustomApiException("계좌의 잔액이 존재합니다.");
+            throw new CustomApiException("계좌에 잔액이 존재합니다.");
         }
+    }
+
+    public void checkDepositAmount(Long amount) {
+        if (balance < amount) {
+            throw new CustomApiException("계좌의 잔액이 부족합니다.");
+        }
+    }
+
+    public void checkPassword(Long password) {
+        if (!this.password.equals(password)) {
+            throw new CustomApiException("패스워드가 일치하지 않습니다.");
+        }
+    }
+
+    public void withdraw(Long amount) {
+        this.balance += amount;
+    }
+
+    public void deposit(Long amount) {
+        this.balance -= amount;
     }
 }

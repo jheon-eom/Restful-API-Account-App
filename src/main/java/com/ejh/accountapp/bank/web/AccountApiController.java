@@ -57,4 +57,16 @@ public class AccountApiController {
         accountService.deleteAccount(accountNumber, userDetails.getUser().getId());
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌 삭제 성공", null), HttpStatus.OK);
     }
+
+    // 입금
+    @PostMapping("/s/accounts/deposit")
+    public ResponseEntity<?> deposit(@RequestBody @Valid DepositRequestDto depositRequestDto,
+                                     BindingResult bindingResult,
+                                     @AuthenticationPrincipal CustomUserDetails userDetails) {
+        DepositResponseDto depositResponseDto = accountService.deposit(depositRequestDto, userDetails.getUser().getId());
+        return new ResponseEntity<>(new ResponseDto<>(1, "계좌 입금 완료", depositResponseDto),
+                HttpStatus.OK);
+    }
+
+    // 출금
 }

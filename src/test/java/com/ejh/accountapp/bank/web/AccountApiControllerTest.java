@@ -6,9 +6,11 @@ import com.ejh.accountapp.bank.domain.user.User;
 import com.ejh.accountapp.bank.domain.user.UserRepository;
 import com.ejh.accountapp.bank.dto.account.AccountDetailRequestDto;
 import com.ejh.accountapp.bank.dto.account.CreateAccountRequestDto;
+import com.ejh.accountapp.bank.dto.account.DepositRequestDto;
 import com.ejh.accountapp.bank.dummy.DummyObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -135,6 +137,40 @@ class AccountApiControllerTest {
 
         // when
         ResultActions resultActions = mockMvc.perform(delete("/api/s/accounts/" + 1234567890L));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        log.info("응답 = {}", responseBody);
+
+        // then
+        resultActions.andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("계좌 입금 테스트")
+    @WithUserDetails(value = "ejh", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void depositTest() throws Exception {
+        // given
+        CreateAccountRequestDto createAccountRequestDto1 = new CreateAccountRequestDto(
+                1234567890L, 1234L);
+        CreateAccountRequestDto createAccountRequestDto2 = new CreateAccountRequestDto(
+                1234567891L, 1234L);
+        User user1 = DummyObject.createUser("ejh", "e4033jh@daum.net");
+        User accountUser1 = userRepository.save(user1);
+        User user2 = DummyObject.createUser("ejh", "e4033jh@daum.net");
+        User accountUser2 = userRepository.save(user2);
+        accountRepository.save(createAccountRequestDto1.toEntity(accountUser1));
+        accountRepository.save(createAccountRequestDto2.toEntity(accountUser2));
+        DepositRequestDto depositRequestDto = DepositRequestDto.builder()
+                .fromAccountNumber(1234567890L)
+                .toAccountNumber(1234567891L)
+                .password(1234L)
+                .amount(100L)
+                .build();
+        String requestBody = objectMapper.writeValueAsString(depositRequestDto);
+        log.info("요청 = {}", requestBody);
+
+        // when
+        ResultActions resultActions = mockMvc.perform(post("/api/s/accounts/deposit")
+                .contentType(MediaType.APPLICATION_JSON).content(requestBody));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         log.info("응답 = {}", responseBody);
 

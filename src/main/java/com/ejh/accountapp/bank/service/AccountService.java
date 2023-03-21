@@ -65,4 +65,27 @@ public class AccountService {
         // 계좌 삭제
         accountRepository.delete(account);
     }
+
+    @Transactional
+    public DepositResponseDto deposit(DepositRequestDto depositRequestDto, Long userId) {
+        // 계좌 확인
+        Account fromAccount = accountRepository.findByAccountNumber(depositRequestDto.getFromAccountNumber())
+                .orElseThrow(() -> new CustomApiException("존재하지 않는 계좌입니다."));
+        Account toAccount = accountRepository.findByAccountNumber(depositRequestDto.getToAccountNumber())
+                .orElseThrow(() -> new CustomApiException("입금 계좌를 찾을 수 없습니다."));
+        if (fromAccount.getAccountNumber().equals(toAccount.getAccountNumber())) {
+            throw new CustomApiException("입출금 계좌가 동일합니다.");
+        }
+        // 계좌 소유자 확인
+        fromAccount.checkOwner(userId);
+        // 패스워드 확인
+        fromAccount.checkPassword(depositRequestDto.getPassword());
+        // 잔액 > 입금액 검사
+        fromAccount.checkDepositAmount(depositRequestDto.getAmount());
+        // 입금
+        fromAccount.deposit(depositRequestDto.getAmount());
+        toAccount.withdraw(depositRequestDto.getAmount());
+        // 거래내역 남기기 (추가 예정)
+        return new DepositResponseDto(fromAccount, toAccount);
+    }
 }

@@ -13,6 +13,9 @@ RESTful한 API를 구현하고자 하는 노력이 부족했단 생각이 들었
 - JPA (Hibernate)
 - Spring Security (JWT)
 - H2 Database
+- Gradle
+- Junit 5
+- Mockito
 ## API 목록
 ### User API
 - 회원가입 : POST /api/users

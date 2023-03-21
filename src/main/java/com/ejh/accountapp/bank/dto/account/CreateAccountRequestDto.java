@@ -25,7 +25,7 @@ public class CreateAccountRequestDto {
         return Account.builder()
                 .accountNumber(accountNumber)
                 .password(password)
-                .balance(0L)
+                .balance(1000L)
                 .user(user)
                 .build();
     }
