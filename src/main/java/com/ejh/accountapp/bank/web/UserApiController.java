@@ -28,9 +28,7 @@ public class UserApiController {
         return new ResponseEntity<>(new ResponseDto<>(1, "회원가입 완료", joinUser), HttpStatus.CREATED);
     }
 
-    // 회원 목록
-
-    // 회원 상세
+    // 회원 정보 조회
 
     // 패스워드 변경
     @PutMapping("/s/users/password")
@@ -39,4 +37,6 @@ public class UserApiController {
         userService.updateUserPassword(updateUserPasswordRequestDto, userDetails.getUser().getId());
         return new ResponseEntity<>(new ResponseDto<>(1, "패스워드 변경 완료", null), HttpStatus.OK);
     }
+
+    // 회원 탈퇴
 }

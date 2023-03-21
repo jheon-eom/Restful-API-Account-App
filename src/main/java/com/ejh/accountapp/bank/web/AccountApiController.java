@@ -58,7 +58,7 @@ public class AccountApiController {
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌 삭제 성공", null), HttpStatus.OK);
     }
 
-    // 입금
+    // 계좌 이체
     @PostMapping("/s/accounts/deposit")
     public ResponseEntity<?> deposit(@RequestBody @Valid DepositRequestDto depositRequestDto,
                                      BindingResult bindingResult,
@@ -67,6 +67,4 @@ public class AccountApiController {
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌 입금 완료", depositResponseDto),
                 HttpStatus.OK);
     }
-
-    // 출금
 }

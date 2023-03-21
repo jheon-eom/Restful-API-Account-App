@@ -18,27 +18,27 @@ RESTful한 API를 구현하고자 하는 노력이 부족했단 생각이 들었
 - Mockito
 ## API 목록
 ### User API
-- 회원가입 : POST /api/users
-- 회원 목록 조회 : GET /api/users
+- 회원 가입 : POST /api/users
+- 회원 정보 조회 : GET /api/users
 - 패스워드 변경 : PUT /api/s/users/password
+- 회원 탈퇴 : DELETE /api/s/users
 
 ### Account API
 - 계좌 등록 : POST /api/s/accounts
 - 계좌 목록 조회 : GET /api/s/accounts
 - 계좌 상세 조회 : GET /api/s/accounts/detail
 - 계좌 삭제 : DELETE /api/s/accounts/{accountNumber}
-- 입금 : POST /api/s/accounts/deposit
-- 출금 : POST /api/s/accounts/withdraw
+- 계좌 이체 : POST /api/s/accounts/deposit
 
 ### Transaction API
 - 거래 목록 조회 : GET /api/s/transactions/{accountNumber}
-- 거래 목록 삭제 : DELETE /api/s/transactions/{transactionId}
+- 거래 내역 삭제 : DELETE /api/s/transactions/{transactionId}
 
-## 프로젝트를 진행하며 학습한 내용
+## 프로젝트를 진행하며 학습한 것들
 1. 스프링 시큐리티 세션쿠키 방식과 토큰 방식의 차이
 2. Mockito를 이용한 Junit 테스트
-3. 통합테스트의 멱등성 보장
-4. 테스트 코드 작성 시 각각의 레이어에 따른 역할
+3. 통합테스트 시 멱등성을 보장하는 방법
+4. 웹 어플리케이션 계층 간 역할 고민과 그에 따른 테스트 코드 작성
 4. ResponseDto 클래스를 정의하여 일관성 있는 API 응답
 5. CustomExceptionHandler 클래스를 정의하여 일관성 있는 예외 핸들링
-6. 스프링 AOP를 통한 Validation 체크 응답 처리
+6. 스프링 AOP를 통한 Validation Check 및 응답
