@@ -39,6 +39,11 @@ RESTful한 API를 구현하고자 하는 노력이 부족했단 생각이 들었
 2. Mockito를 이용한 Junit 테스트
 3. 통합테스트 시 멱등성을 보장하는 방법
 4. 웹 어플리케이션 계층 간 역할 고민과 그에 따른 테스트 코드 작성
-4. ResponseDto 클래스를 정의하여 일관성 있는 API 응답
-5. CustomExceptionHandler 클래스를 정의하여 일관성 있는 예외 핸들링
-6. 스프링 AOP를 통한 Validation Check 및 응답
+5. ResponseDto 클래스를 정의하여 일관성 있는 API 응답
+6. CustomExceptionHandler 클래스를 정의하여 일관성 있는 예외 핸들링
+7. 스프링 AOP를 통한 Validation Check 및 응답
+
+## 이후 개선사항
+1. JWT 보안 대책 (SecretKey 숨김, 리프레시 토큰 발급 구현)
+2. 계좌 비밀번호 암호화
+3. 테스트 데이터 공통화 및 중복 코드 방지를 위한 공통 클래스 정의
