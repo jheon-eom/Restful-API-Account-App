@@ -4,13 +4,11 @@ import com.ejh.accountapp.bank.domain.account.Account;
 import com.ejh.accountapp.bank.domain.account.AccountRepository;
 import com.ejh.accountapp.bank.domain.user.User;
 import com.ejh.accountapp.bank.domain.user.UserRepository;
-import com.ejh.accountapp.bank.dto.account.AccountResponseDto;
 import com.ejh.accountapp.bank.dto.account.CreateAccountRequestDto;
 import com.ejh.accountapp.bank.dto.account.CreateAccountResponseDto;
 import com.ejh.accountapp.bank.dummy.DummyObject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,11 +17,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 

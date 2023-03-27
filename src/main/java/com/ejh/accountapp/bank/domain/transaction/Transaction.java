@@ -22,18 +22,16 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    private Account depositAccount; // 입금 계좌
+    private Account depositAccount;
     @ManyToOne(fetch = FetchType.LAZY)
-    private Account withdrawAccount; // 출금 계좌
+    private Account receiveAccount;
     @Column(nullable = false)
     private int amount;
-    private int withdrawAccountBalance;
-    private int depositAccountBalance;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private TransactionClassification transactionClassification;
-    private String sender; // 입금인
-    private String receiver; // 송금인
+    private DepositType depositType;
+    private String sender;
+    private String receiver;
     @Column(nullable = false)
     @CreatedDate
     private LocalDateTime createdAt;
@@ -42,16 +40,13 @@ public class Transaction {
     private LocalDateTime modifiedAt;
 
     @Builder
-    public Transaction(Long id, Account depositAccount, Account withdrawAccount, int amount,
-                       int withdrawAccountBalance, int depositAccountBalance, TransactionClassification transactionClassification,
+    public Transaction(Long id, Account depositAccount, Account receiveAccount, int amount, DepositType depositType,
                        String sender, String receiver, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;
         this.depositAccount = depositAccount;
-        this.withdrawAccount = withdrawAccount;
+        this.receiveAccount = receiveAccount;
         this.amount = amount;
-        this.withdrawAccountBalance = withdrawAccountBalance;
-        this.depositAccountBalance = depositAccountBalance;
-        this.transactionClassification = transactionClassification;
+        this.depositType = depositType;
         this.sender = sender;
         this.receiver = receiver;
         this.createdAt = createdAt;

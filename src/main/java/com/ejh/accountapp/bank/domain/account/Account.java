@@ -73,7 +73,7 @@ public class Account {
         }
     }
 
-    public void withdraw(Long amount) {
+    public void receive(Long amount) {
         this.balance += amount;
     }
 

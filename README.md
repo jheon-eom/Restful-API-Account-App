@@ -43,7 +43,7 @@ RESTful한 API를 구현하고자 하는 노력이 부족했단 생각이 들었
 6. CustomExceptionHandler 클래스를 정의하여 일관성 있는 예외 핸들링
 7. 스프링 AOP를 통한 Validation Check 및 응답
 
-## 이후 개선사항
+## 개선사항
 1. JWT 보안 대책 (SecretKey 숨김, 리프레시 토큰 발급 구현)
 2. 계좌 비밀번호 암호화
 3. 테스트 데이터 공통화 및 중복 코드 방지를 위한 공통 클래스 정의

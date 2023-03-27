@@ -10,7 +10,6 @@ import com.ejh.accountapp.bank.dto.account.DepositRequestDto;
 import com.ejh.accountapp.bank.dummy.DummyObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -166,13 +165,13 @@ class AccountApiControllerTest {
                 .amount(100L)
                 .build();
         String requestBody = objectMapper.writeValueAsString(depositRequestDto);
-        log.info("요청 = {}", requestBody);
+        log.debug("요청 = {}", requestBody);
 
         // when
         ResultActions resultActions = mockMvc.perform(post("/api/s/accounts/deposit")
                 .contentType(MediaType.APPLICATION_JSON).content(requestBody));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-        log.info("응답 = {}", responseBody);
+        log.debug("응답 = {}", responseBody);
 
         // then
         resultActions.andExpect(status().isOk());

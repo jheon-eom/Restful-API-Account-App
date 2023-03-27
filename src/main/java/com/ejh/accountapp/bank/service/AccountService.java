@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class AccountService {
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
+    private final TransactionService transactionService;
 
     @Transactional
     public CreateAccountResponseDto createAccount(CreateAccountRequestDto createAccountRequestDto, Long userId) {
@@ -84,8 +85,9 @@ public class AccountService {
         fromAccount.checkDepositAmount(depositRequestDto.getAmount());
         // 입금
         fromAccount.deposit(depositRequestDto.getAmount());
-        toAccount.withdraw(depositRequestDto.getAmount());
+        toAccount.receive(depositRequestDto.getAmount());
         // 거래내역 남기기 (추가 예정)
+        transactionService.saveDepositHistory(fromAccount, toAccount);
         return new DepositResponseDto(fromAccount, toAccount);
     }
 }

@@ -27,7 +27,6 @@ spring:
 
 logging:
   level:
-    org.springframework: DEBUG
-    org.hibernate.type: TRACE
+    com.ejh.accountapp: DEBUG
 
 # JWT 관련 설정 추가해야함 (비밀 키)

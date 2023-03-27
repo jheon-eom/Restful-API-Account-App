@@ -54,13 +54,13 @@ class UserApiControllerTest {
         JoinRequestDto joinRequestDto = new JoinRequestDto(
                 "ejh", "1234", "e4033jh@daum.net");
         String requestBody = objectMapper.writeValueAsString(joinRequestDto);
-        log.info("회원가입 요청 = {}", requestBody);
+        log.debug("회원가입 요청 = {}", requestBody);
 
         // when
         ResultActions resultActions = mockMvc.perform(post("/api/users")
                 .contentType(MediaType.APPLICATION_JSON).content(requestBody));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-        log.info("회원가입 응답 = {}", responseBody);
+        log.debug("회원가입 응답 = {}", responseBody);
 
         // then
         resultActions.andExpect(status().isCreated());
@@ -73,12 +73,12 @@ class UserApiControllerTest {
         JoinRequestDto joinRequestDto = new JoinRequestDto(
                 "ejh123", "1234", "e123123jh@daum.net");
         String requestBody = objectMapper.writeValueAsString(joinRequestDto);
-        log.info("회원가입 요청 = {}", requestBody);
+        log.debug("회원가입 요청 = {}", requestBody);
 
         ResultActions resultActions = mockMvc.perform(post("/api/users")
                 .contentType(MediaType.APPLICATION_JSON).content(requestBody));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-        log.info("회원가입 응답 = {}", responseBody);
+        log.debug("회원가입 응답 = {}", responseBody);
 
         // then
         resultActions.andExpect(status().isBadRequest());
@@ -92,13 +92,13 @@ class UserApiControllerTest {
         UpdateUserPasswordRequestDto updateUserPasswordRequestDto =
                 new UpdateUserPasswordRequestDto("1234", "4321");
         String requestBody = objectMapper.writeValueAsString(updateUserPasswordRequestDto);
-        log.info("패스워드 변경 요청 = {}", updateUserPasswordRequestDto);
+        log.debug("패스워드 변경 요청 = {}", updateUserPasswordRequestDto);
 
         // when
         ResultActions resultActions = mockMvc.perform(put("/api/s/users/password")
                 .contentType(MediaType.APPLICATION_JSON).content(requestBody));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-        log.info("패스워드 변경 응답 = {}", responseBody);
+        log.debug("패스워드 변경 응답 = {}", responseBody);
 
         // then
         resultActions.andExpect(status().isOk());
