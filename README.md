@@ -31,8 +31,7 @@ RESTful한 API를 구현하고자 하는 노력이 부족했단 생각이 들었
 - 계좌 이체 : POST /api/s/accounts/deposit
 
 ### Transaction API
-- 거래 목록 조회 : GET /api/s/transactions/{accountNumber}
-- 거래 내역 삭제 : DELETE /api/s/transactions/{transactionId}
+- 거래 목록 조회 : GET /api/s/account/{accountNumber}/transactions/{type}
 
 ## 프로젝트를 진행하며 학습한 것들
 1. 스프링 시큐리티 세션쿠키 방식과 토큰 방식의 차이

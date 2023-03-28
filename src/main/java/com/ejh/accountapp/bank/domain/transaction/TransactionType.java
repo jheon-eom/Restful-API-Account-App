@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public enum DepositType {
-    DEBT("빚"),
-    DUTCH("더치페이"),
-    POCKET("용돈");
+public enum TransactionType {
+    ALL("전체"),
+    DEPOSIT("입금함"),
+    RECEIVE("입금받음");
 
     private String value;
 }

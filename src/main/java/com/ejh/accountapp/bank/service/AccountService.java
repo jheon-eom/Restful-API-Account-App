@@ -86,8 +86,8 @@ public class AccountService {
         // 입금
         fromAccount.deposit(depositRequestDto.getAmount());
         toAccount.receive(depositRequestDto.getAmount());
-        // 거래내역 남기기 (추가 예정)
-        transactionService.saveDepositHistory(fromAccount, toAccount);
+        // 거래내역 남기기
+        transactionService.saveDepositHistory(depositRequestDto, fromAccount, toAccount);
         return new DepositResponseDto(fromAccount, toAccount);
     }
 }

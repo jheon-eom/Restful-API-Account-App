@@ -26,10 +26,10 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.LAZY)
     private Account receiveAccount;
     @Column(nullable = false)
-    private int amount;
+    private Long amount;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private DepositType depositType;
+    private TransactionType transactionType;
     private String sender;
     private String receiver;
     @Column(nullable = false)
@@ -40,13 +40,13 @@ public class Transaction {
     private LocalDateTime modifiedAt;
 
     @Builder
-    public Transaction(Long id, Account depositAccount, Account receiveAccount, int amount, DepositType depositType,
+    public Transaction(Long id, Account depositAccount, Account receiveAccount, Long amount, TransactionType transactionType,
                        String sender, String receiver, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;
         this.depositAccount = depositAccount;
         this.receiveAccount = receiveAccount;
         this.amount = amount;
-        this.depositType = depositType;
+        this.transactionType = transactionType;
         this.sender = sender;
         this.receiver = receiver;
         this.createdAt = createdAt;

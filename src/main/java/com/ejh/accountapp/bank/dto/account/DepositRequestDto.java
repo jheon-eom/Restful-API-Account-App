@@ -1,5 +1,6 @@
 package com.ejh.accountapp.bank.dto.account;
 
+import com.ejh.accountapp.bank.domain.transaction.TransactionType;
 import lombok.*;
 
 import javax.validation.constraints.Digits;
@@ -19,12 +20,16 @@ public class DepositRequestDto {
     private Long password;
     @NotNull
     private Long amount;
+    @NotNull
+    private TransactionType transactionType;
 
     @Builder
-    public DepositRequestDto(Long fromAccountNumber, Long toAccountNumber, Long password, Long amount) {
+    public DepositRequestDto(Long fromAccountNumber, Long toAccountNumber, Long password
+            , Long amount, TransactionType transactionType) {
         this.fromAccountNumber = fromAccountNumber;
         this.toAccountNumber = toAccountNumber;
         this.password = password;
         this.amount = amount;
+        this.transactionType = transactionType;
     }
 }
