@@ -25,7 +25,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         if (isHeaderVerify(request, response)) { // 토큰 헤더 검증
             String token = request.getHeader(JwtVo.HEADER).replace(JwtVo.TOKEN_PREFIX, "");
             CustomUserDetails userDetails = JwtProcess.verify(token);
-            // 토큰이 검증되면 유저 id와 권한이 담긴 Authentication 객체 세션에 담기
+            // 토큰이 검증되면 유저 id와 권한이 담긴 Authentication 객체를 SecurityContextHolder에 저장
             Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails,
                     null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
